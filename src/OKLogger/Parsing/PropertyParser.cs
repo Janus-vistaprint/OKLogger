@@ -7,7 +7,7 @@ using System.Reflection;
 using System.ComponentModel;
 using OKLogger.Parsing;
 
-namespace Gallery.Logs
+namespace OKLogger
 {
     public class PropertyParser
     {

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+<log4net>
+  <appender name="LocalFile" type="log4net.Appender.FileAppender,log4net">
+    <file value="c:\CustomLogs\OKLogger.Logging.Test.log" />
+    <appendToFile value="true" />
+    <layout type="OKLogger.Layouts.OKLayout, OKLogger">
+      <IgnoresException value="False" />
+      <conversionPattern value="timestamp=&quot;%date&quot;, host=&quot;%property{log4net:HostName}&quot;,process=&quot;[%t.%properties{pid}]&quot;,severity=&quot;%-5p&quot;,env=&quot;%properties{vpenv}&quot;,%props,logger=&quot;%c&quot;,log_message=&quot;%m&quot;%n%exception" />
+    </layout>
+  </appender>
+
+
+  <root>
+    <level value="ALL" />
+    <appender-ref ref="LocalFile" />
+  </root>
+
+</log4net>
