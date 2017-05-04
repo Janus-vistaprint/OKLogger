@@ -6,10 +6,14 @@ nuget:
 build_script:
 - ps: >-
     dotnet restore --source https://api.nuget.org/v3/index.json OkLogger.sln 
+
     dotnet build OKLogger.sln
+
     if($env:APPVEYOR_REPO_TAG -eq "true")
     {
+
       dotnet pack src\OKLogger\OKLogger.csproj --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+      
     }
 test: off
 artifacts:
