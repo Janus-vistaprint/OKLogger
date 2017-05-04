@@ -5,10 +5,10 @@ build_script:
     dotnet restore OkLogger.sln --source https://api.nuget.org/v3/index.json
 
         dotnet build OKLogger.sln
-        
+
         if($env:APPVEYOR_REPO_TAG -eq "true")
         {
-          dotnet pack src\OKLogger\OKLogger.csproj --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+          dotnet pack src\OKLogger\OKLogger.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
         }
 test_script:
 - ps: dotnet test src\OKLogger.UnitTests\OKLogger.UnitTests.csproj
