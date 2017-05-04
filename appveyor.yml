@@ -1,0 +1,22 @@
+image: Visual Studio 2017
+version: 1.0.{build}
+nuget:
+  account_feed: true
+  project_feed: true
+build_script:
+- ps: >-
+    dotnet restore --source https://api.nuget.org/v3/index.json OkLogger.sln 
+    dotnet build OKLogger.sln
+    if($env:APPVEYOR_REPO_TAG -eq "true")
+    {
+      dotnet pack src\OKLogger\OKLogger.csproj --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+    }
+test: off
+artifacts:
+- path: output\**.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: bGn7M6dHOJ3QjwYIv7e34tcY/n9cCUZmL1MnM6jRfmnJOOfwlrS+cdRj2n8Wf31n
+  on:
+    appveyor_repo_tag: true

@@ -6,7 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+output
 # Database package artifacts
 data/dba_scripts
 data/*.lst
