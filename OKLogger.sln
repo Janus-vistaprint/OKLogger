@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger", "OKLogger\OKLogger.csproj", "{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger", "src\OKLogger\OKLogger.csproj", "{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.TestHarness", "OKLogger.TestHanress\OKLogger.TestHarness.csproj", "{33367708-E265-4941-A8A4-6EEAAFEF440B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger.TestHarness", "src\OKLogger.TestHanress\OKLogger.TestHarness.csproj", "{33367708-E265-4941-A8A4-6EEAAFEF440B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger.UnitTests", "src\OKLogger.UnitTests\OKLogger.UnitTests.csproj", "{9DD703CB-E558-4BA5-A1D3-5BE9ED45ED52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.Tests", "OKLogger.Tests\OKLogger.Tests.csproj", "{22929AD3-3157-402F-8254-029D1839CAF3}"
 EndProject
@@ -23,10 +25,10 @@ Global
 		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22929AD3-3157-402F-8254-029D1839CAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22929AD3-3157-402F-8254-029D1839CAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22929AD3-3157-402F-8254-029D1839CAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22929AD3-3157-402F-8254-029D1839CAF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD703CB-E558-4BA5-A1D3-5BE9ED45ED52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD703CB-E558-4BA5-A1D3-5BE9ED45ED52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD703CB-E558-4BA5-A1D3-5BE9ED45ED52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD703CB-E558-4BA5-A1D3-5BE9ED45ED52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
