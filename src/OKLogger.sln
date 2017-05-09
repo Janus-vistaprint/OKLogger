@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger", "OKLogger\OKLogger.csproj", "{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.TestHarness", "OKLogger.TestHanress\OKLogger.TestHarness.csproj", "{33367708-E265-4941-A8A4-6EEAAFEF440B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.Tests", "OKLogger.Tests\OKLogger.Tests.csproj", "{22929AD3-3157-402F-8254-029D1839CAF3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C7C873-CBA6-47CA-8EC1-1D24C5C3ECA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33367708-E265-4941-A8A4-6EEAAFEF440B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22929AD3-3157-402F-8254-029D1839CAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22929AD3-3157-402F-8254-029D1839CAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22929AD3-3157-402F-8254-029D1839CAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22929AD3-3157-402F-8254-029D1839CAF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
