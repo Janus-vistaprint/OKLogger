@@ -5,6 +5,7 @@ using Xunit;
 using Moq;
 using OKLogger.Parsing;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace OKLogger.Tests
 {
@@ -76,6 +77,8 @@ namespace OKLogger.Tests
         [Fact]
         public void ObjectFormatter_Nested()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             var objectToFormat = new
             {
                 Alpha = "a",
@@ -97,6 +100,8 @@ namespace OKLogger.Tests
             var formatters = new DefaultFormatters();
             var objectFormatter = new ObjectFormatter(formatters, ",", 5);
             var result = objectFormatter.Format(objectToFormat, 0);
+            stopwatch.Stop();
+            var duration = stopwatch.ElapsedMilliseconds;
 
             Assert.Equal(7, result.Count);
             Assert.Equal(result["Alpha"], "a");
