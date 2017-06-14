@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.TestHarness", "OKL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.Tests", "OKLogger.Tests\OKLogger.Tests.csproj", "{22929AD3-3157-402F-8254-029D1839CAF3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{3F2AABF2-5122-4B81-8F92-2827E231206A}"
+	ProjectSection(SolutionItems) = preProject
+		..\Readme.md = ..\Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

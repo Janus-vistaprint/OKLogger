@@ -5,6 +5,7 @@ using OKLogger.Parsing;
 using log4net.Config;
 using log4net.Core;
 using log4net;
+using System.Threading.Tasks;
 
 namespace OKLogger
 {
@@ -56,89 +57,53 @@ namespace OKLogger
             ContextCallbacks = new List<Func<object>>();
         }
 
-
-        /// <summary>
-        /// Generates logging event, adding extra property data
-        /// </summary>
-        /// <param name="level">Fata, Warn, Error, etc.</param>
-        /// <param name="Message">Message to log</param>
-        /// <param name="ex">Exception to log with message</param>
-        private void LogEvent(Level level, IDictionary<string, string> properties, string message, Exception ex)
-        {
-
-            try
-            {
-                if (IsLogLevelEnabled(level))
-                {
-                    var logEvent = new LoggingEvent(typeof(Logger), Log.Logger.Repository, Log.Logger.Name, level, message, ex); ;
-
-                    logEvent.Properties[EnvironmentProperty] = Environment;
-                    //logEvent.Properties[ProcessIdProperty] = Process.GetCurrentProcess().Id;
-
-                    foreach (var contextCallback in ContextCallbacks)
-                    {
-                        var contextResult = contextCallback();
-                        var contextProperties = PropParser.Parse(contextResult);
-
-                        foreach (var keyPair in contextProperties)
-                        {
-                            var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
-                            logEvent.Properties[keyName] = keyPair.Value;
-                        }
-
-                    }
-
-                    if (properties != null)
-                    {
-                        foreach (var keyPair in properties)
-                        {
-                            var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
-                            logEvent.Properties[keyName] = keyPair.Value;
-                        }
-                    }
-
-                    if (Context != null)
-                    {
-                        foreach (var keyPair in Context)
-                        {
-                            var keyName = Logger.CustomContextPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
-                            logEvent.Properties[keyName] = keyPair.Value;
-                        }
-                    }
-                    Log.Logger.Log(logEvent);
-                }
-            }
-            catch (Exception exc)
-            {
-                Log.Error("Unable to log message. This really should not happen",exc);
-            }
-
-        }
-
-        private void LogEvent(Level level, object properties, string message, Exception ex)
-        {
-            try
-            {
-                if (IsLogLevelEnabled(level))
-                {
-                    var props = PropParser.Parse(properties);
-                    LogEvent(level, props, message, ex);
-                }
-            }
-            catch (Exception exc)
-            {
-                Log.Error( "Unable to log message. This really should not happen", exc);
-            }
-        }
-
         private void LogEvent(Level level, object[] properties, string message, Exception ex)
         {
             try
             {
                 if (IsLogLevelEnabled(level))
                 {
-                    var props = PropParser.Parse(properties);
-                    LogEvent(level, props, message, ex);
+                    Task.Run(() =>
+                    {
+                        var props = PropParser.Parse(properties);
+                        var logEvent = new LoggingEvent(typeof(Logger), Log.Logger.Repository, Log.Logger.Name, level, message, ex); ;
+
+                        logEvent.Properties[EnvironmentProperty] = Environment;
+                        //logEvent.Properties[ProcessIdProperty] = Process.GetCurrentProcess().Id;
+
+                        foreach (var contextCallback in ContextCallbacks)
+                        {
+                            var contextResult = contextCallback();
+                            var contextProperties = PropParser.Parse(contextResult);
+
+                            foreach (var keyPair in contextProperties)
+                            {
+                                var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                logEvent.Properties[keyName] = keyPair.Value;
+                            }
+
+                        }
+
+                        if (properties != null)
+                        {
+                            foreach (var keyPair in props)
+                            {
+                                var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                logEvent.Properties[keyName] = keyPair.Value;
+                            }
+                        }
+
+                        if (Context != null)
+                        {
+                            foreach (var keyPair in Context)
+                            {
+                                var keyName = Logger.CustomContextPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                logEvent.Properties[keyName] = keyPair.Value;
+                            }
+                        }
+                        Log.Logger.Log(logEvent);
+                    });
+
                 }
             }
             catch (Exception exc)
