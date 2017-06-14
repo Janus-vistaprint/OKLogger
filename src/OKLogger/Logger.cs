@@ -102,7 +102,7 @@ namespace OKLogger
                             }
                         }
                         Log.Logger.Log(logEvent);
-                    });
+                    }).ConfigureAwait(false);
 
                 }
             }
