@@ -45,5 +45,11 @@ namespace OKLogger
             XmlConfigurator.Configure(logRepository, config);
 
         }
+        public static void Configure()
+        {
+            var logRepository =  LogManager.CreateRepository(DefaultRepository);
+            XmlConfigurator.Configure(logRepository);
+
+        }
     }
 }
