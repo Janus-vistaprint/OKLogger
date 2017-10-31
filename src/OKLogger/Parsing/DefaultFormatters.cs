@@ -11,6 +11,8 @@ namespace OKLogger.Parsing
         public const int MaxDepth = 3;
         public IValueEscaper Scrubber = new CharEscaper('"');
 
+        private int StartOfCustomFormatterRange = 1000;
+
         public DefaultFormatters()
             :base()
         {
@@ -21,13 +23,17 @@ namespace OKLogger.Parsing
             Add(5, new GuidFormatter());
 
             Add(9, new ExceptionFormatter());
-            Add(10, new ArrayFormatter(",", Scrubber));
-            Add(15, new GenericListFormatter(",", Scrubber));
-            Add(18, new DictionaryFormatter(",", Scrubber));
 
 
-            Add(20, new ObjectFormatter(this, ",", MaxDepth));
+            Add(100, new ArrayFormatter(",", Scrubber));
+            Add(101, new GenericListFormatter(",", Scrubber));
+            Add(102, new DictionaryFormatter(",", Scrubber));
+
+
+            Add(int.MaxValue, new ObjectFormatter(this, ",", MaxDepth));
 
         }
+
+
     }
 }
