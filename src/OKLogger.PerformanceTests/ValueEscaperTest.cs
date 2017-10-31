@@ -13,7 +13,7 @@ namespace OKLogger.PerformanceTests
         public void TestCharacterReplacer()
         {
            var random = new Random();
-           var escaper = new ValueEscaper((new char[] { '"' }));
+           var escaper = new CharEscaper('"');
            var strings = new List<string>(10000);
            for (int i = 0; i < 10000; i++)
            {

@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger.Tests", "src\OKLog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger.UnitTests", "src\OKLogger.UnitTests\OKLogger.UnitTests.csproj", "{2855B315-8ED7-4D2A-8457-FE8029FD7179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OKLogger.PerformanceTestsHarness", "OKLogger.PerformanceTestsHarness\OKLogger.PerformanceTestsHarness.csproj", "{6CEDC9AC-3D6D-4929-B1EF-69F3347A87BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OKLogger.PerformanceTestsHarness", "OKLogger.PerformanceTestsHarness\OKLogger.PerformanceTestsHarness.csproj", "{6CEDC9AC-3D6D-4929-B1EF-69F3347A87BE}"
 EndProject
 Global
 	GlobalSection(Performance) = preSolution
@@ -115,5 +115,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3EA568F-FC0B-4F4F-ABFA-C143453404A8}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

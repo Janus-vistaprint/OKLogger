@@ -12,7 +12,7 @@ namespace OKLogger.Tests
     public class FormattingTests
     {
 
-        public IValueEscaper Scrubber = new ValueEscaper(new char[] { '"' });
+        public IValueEscaper Scrubber = new CharEscaper('"');
 
 
         [Fact]

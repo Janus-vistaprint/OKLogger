@@ -12,7 +12,7 @@ namespace OKLogger.Parsing
     {
         private string Delimiter { get; set; }
         private IValueEscaper Scrub { get; set; }
-
+        private TypeInfo typeInfo = typeof(Dictionary<,>).GetTypeInfo();
         public DictionaryFormatter(string delimiter,IValueEscaper scrub)
         {
             Delimiter = delimiter;
@@ -44,7 +44,7 @@ namespace OKLogger.Parsing
             if (!t.GetTypeInfo().IsGenericType)
                 return false;
 
-            if (!t.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(typeof(Dictionary<,>).GetTypeInfo()))
+            if (!t.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(typeInfo))
                 return false;
 
             var keyType = t.GenericTypeArguments[0];
