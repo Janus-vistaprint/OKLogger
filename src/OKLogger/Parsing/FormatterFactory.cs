@@ -10,6 +10,7 @@ namespace OKLogger.Parsing
     {
         protected SortedList<int, IEntityFormatter> Formatters { get; set; }
 
+        protected int CurrentCustomFormatterPosition = 10000;
         public FormatterFactory()
         {
             Formatters = new SortedList<int, IEntityFormatter>();
@@ -19,6 +20,11 @@ namespace OKLogger.Parsing
         public void Add(int priority, IEntityFormatter formatter)
         {
             Formatters[priority] = formatter;
+        }
+
+        public void AddCustomFormatter( IEntityFormatter formatter)
+        {
+            Add(CurrentCustomFormatterPosition++, formatter);
         }
 
         public IEntityFormatter GetParser(Type t)

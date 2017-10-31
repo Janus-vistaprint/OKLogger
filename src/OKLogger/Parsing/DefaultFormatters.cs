@@ -21,12 +21,13 @@ namespace OKLogger.Parsing
             Add(5, new GuidFormatter());
 
             Add(9, new ExceptionFormatter());
-            Add(10, new ArrayFormatter(",", Scrubber));
-            Add(15, new GenericListFormatter(",", Scrubber));
-            Add(18, new DictionaryFormatter(",", Scrubber));
+
+            Add(100, new ArrayFormatter(",", Scrubber));
+            Add(101, new GenericListFormatter(",", Scrubber));
+            Add(102, new DictionaryFormatter(",", Scrubber));
 
 
-            Add(20, new ObjectFormatter(this, ",", MaxDepth));
+            Add(Int16.MaxValue, new ObjectFormatter(this, ",", MaxDepth));
 
         }
     }
