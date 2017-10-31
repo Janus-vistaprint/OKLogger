@@ -6,6 +6,7 @@ using log4net.Config;
 using log4net.Core;
 using log4net;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace OKLogger
 {
@@ -38,17 +39,24 @@ namespace OKLogger
         /// </summary>
         /// <param name="log">log4net base log</param>
         /// <param name="environment">DEV / PROD, TEST. Outputs as env property</param>
-        public Logger(ILog log, string environment)
-            : this(log, environment, null)
+        public Logger(ILog log, string environment, IEnumerable<IEntityFormatter> customFormatters = null)
+            : this(log, environment, null, customFormatters)
         {
 
         }
 
-        public Logger(ILog log, string environment, object context)
+        public Logger(ILog log, string environment, object context, IEnumerable<IEntityFormatter> customFormatters = null)
         {
             Log = log;
             Environment = environment;
             Formatters = new DefaultFormatters();
+            customFormatters = customFormatters ?? Enumerable.Empty<IEntityFormatter>();
+           
+            foreach(var customFormatter in customFormatters)
+            {
+                Formatters.AddCustomFormatter(customFormatter);
+            }
+            
             PropParser = new PropertyParser(Formatters, FieldContentDelimiter);
             if (context != null)
             {
