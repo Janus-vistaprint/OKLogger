@@ -17,7 +17,6 @@ namespace OKLogger.Parsing
 
         public string Escape(string value)
         {
-            var time = System.Diagnostics.Stopwatch.StartNew();
             if(string.IsNullOrWhiteSpace(value))
             {
                 return string.Empty;
@@ -26,7 +25,6 @@ namespace OKLogger.Parsing
             {
                 value = value.Replace(c, '\0'); // \0 is an ASCII value of 0 aka no value
             }
-            time.Stop();
             return value;
         }
     }
