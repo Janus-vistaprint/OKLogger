@@ -1,5 +1,7 @@
 image: Visual Studio 2017
 version: 1.0.{build}
+init:
+  - git config --global core.autocrlf input
 build_script:
 - ps: >-
     dotnet restore OkLogger.sln --source https://api.nuget.org/v3/index.json
@@ -9,6 +11,10 @@ build_script:
         if($env:APPVEYOR_REPO_TAG -eq "true")
         {
           dotnet pack src\OKLogger\OKLogger.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+        }
+        else
+        {
+          dotnet pack src\OKLogger\OKLogger.csproj --configuration Release --output ..\..\output /p:Version=0.0.1-build-$env:APPVEYOR_BUILD_NUMBER
         }
 test_script:
 - ps: dotnet test src\OKLogger.UnitTests\OKLogger.UnitTests.csproj

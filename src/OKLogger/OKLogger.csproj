@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+    <SourceLinkServerType>GitHub</SourceLinkServerType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,16 @@
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.4.0" PrivateAssets="All" /> 
   </ItemGroup>
+  <!-- place symbols in nupkg with dlls -->
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludePDBsInPackage</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+  <Target Name="IncludePDBsInPackage" Condition="'$(IncludeBuildOutput)' != 'false'">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).pdb" PackagePath="lib\$(TargetFramework)" />
+    </ItemGroup>
+  </Target>
 
 </Project>
