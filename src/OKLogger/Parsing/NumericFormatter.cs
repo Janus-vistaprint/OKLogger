@@ -8,7 +8,7 @@ namespace OKLogger.Parsing
 {
     public class NumericFormatter : IEntityFormatter
     {
-        private Type[] HandledTypes = new Type[] {
+        private HashSet<Type> HandledTypes = new HashSet<Type> {
                 typeof(short), typeof(Int16),
                 typeof(ushort), typeof(UInt16),
                 typeof(int), typeof(Int32),

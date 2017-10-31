@@ -23,7 +23,7 @@ namespace OKLogger
 
         protected IFormatterFactory Formatters { get; set; }
 
-        private PropertyParser PropParser { get; set; }
+        internal PropertyParser PropParser { get; set; }
 
 
         private IDictionary<string, string> Context { get; set; }
@@ -56,21 +56,25 @@ namespace OKLogger
             }
             ContextCallbacks = new List<Func<object>>();
         }
-
         private void LogEvent(Level level, object[] properties, string message, Exception ex)
         {
+            message = message ?? string.Empty; //I'm paranoid
+            if(message.Length > 4000)
+            {
+                message = message.Substring(0, 4000);
+            }
             try
             {
                 if (IsLogLevelEnabled(level))
                 {
+                    int totalLogSize = message.Length;
                     Task.Run(() =>
                     {
                         var props = PropParser.Parse(properties);
-                        var logEvent = new LoggingEvent(typeof(Logger), Log.Logger.Repository, Log.Logger.Name, level, message, ex); ;
+                        var logEvent = new LoggingEvent(typeof(Logger), Log.Logger.Repository, Log.Logger.Name, level, message, ex);
 
                         logEvent.Properties[EnvironmentProperty] = Environment;
                         //logEvent.Properties[ProcessIdProperty] = Process.GetCurrentProcess().Id;
-
                         foreach (var contextCallback in ContextCallbacks)
                         {
                             var contextResult = contextCallback();
@@ -79,7 +83,10 @@ namespace OKLogger
                             foreach (var keyPair in contextProperties)
                             {
                                 var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal = keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
+                                totalLogSize = newTotal;
                             }
 
                         }
@@ -89,7 +96,10 @@ namespace OKLogger
                             foreach (var keyPair in props)
                             {
                                 var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal = keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
+                                totalLogSize = newTotal;
                             }
                         }
 
@@ -97,8 +107,12 @@ namespace OKLogger
                         {
                             foreach (var keyPair in Context)
                             {
+                                
                                 var keyName = Logger.CustomContextPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal =  keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
+                                totalLogSize = newTotal;
                             }
                         }
                         Log.Logger.Log(logEvent);

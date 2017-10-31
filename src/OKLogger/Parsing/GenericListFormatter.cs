@@ -12,7 +12,7 @@ namespace OKLogger.Parsing
     {
         private string Delimiter { get; set; }
         private IValueEscaper Scrub { get; set; }
-
+        private TypeInfo ListTypeInfo = typeof(List<>).GetTypeInfo();
         public GenericListFormatter(string delimiter, IValueEscaper scrub)
         {
             Scrub = scrub;
@@ -43,7 +43,7 @@ namespace OKLogger.Parsing
             if (!typeInfo.IsGenericType)
                 return false;
 
-            return typeInfo.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(typeof(List<>).GetTypeInfo());
+            return typeInfo.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(ListTypeInfo);
 
         }
     }

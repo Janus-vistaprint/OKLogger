@@ -17,7 +17,8 @@ build_script:
           dotnet pack src\OKLogger\OKLogger.csproj --configuration Release --output ..\..\output /p:Version=0.0.1-build-$env:APPVEYOR_BUILD_NUMBER
         }
 test_script:
-- ps: dotnet test src\OKLogger.UnitTests\OKLogger.UnitTests.csproj
+- ps: dotnet test .\src\OKLogger.Tests\OKLogger.Tests.csproj
+- ps: dotnet test src\OKLogger.PerformanceTests\OKLogger.PerformanceTests.csproj
 artifacts:
 - path: output\**.nupkg
 deploy:

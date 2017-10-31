@@ -9,7 +9,7 @@ namespace OKLogger.Parsing
     public class DateTimeFormatter : IEntityFormatter
     {
        
-        private Type[] HandledTypes = new Type[] {  typeof(DateTime), typeof(DateTime?) };
+        private HashSet<Type> HandledTypes = new HashSet <Type> {  typeof(DateTime), typeof(DateTime?) };
 
         private string DatePattern { get; set; }
 

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace OKLogger.Parsing
 {
-    public class ValueEscaper : IValueEscaper
+    public class CharEscaper : IValueEscaper
     {
-        private string[] EscapedChars { get; set; }
+        private char _charToEscape = '"';
+        private readonly char _charToReplace;
 
-        public ValueEscaper(string[] escapedChars)
+        public CharEscaper(char charToEscape, char charToReplace = '_')
         {
-            EscapedChars = escapedChars;
+            _charToEscape = charToEscape;
+            _charToReplace = charToReplace;
         }
 
         public string Escape(string value)
@@ -21,12 +23,7 @@ namespace OKLogger.Parsing
             {
                 return string.Empty;
             }
-            foreach(var c in EscapedChars)
-            {
-                value = value.Replace(c, string.Empty);
-            }
-
-            return value;
+            return value.Replace(_charToEscape, _charToReplace);
         }
     }
 }
