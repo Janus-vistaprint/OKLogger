@@ -82,11 +82,11 @@ namespace OKLogger
 
                             foreach (var keyPair in contextProperties)
                             {
-                                if (totalLogSize > 8000) continue;
                                 var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal = keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
-                                totalLogSize += keyName.Length;
-                                totalLogSize += keyPair.Value.Length;
+                                totalLogSize = newTotal;
                             }
 
                         }
@@ -95,11 +95,11 @@ namespace OKLogger
                         {
                             foreach (var keyPair in props)
                             {
-                                if (totalLogSize > 8000) continue;
                                 var keyName = Logger.CustomPropertyPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal = keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
-                                totalLogSize += keyName.Length;
-                                totalLogSize += keyPair.Value.Length;
+                                totalLogSize = newTotal;
                             }
                         }
 
@@ -107,11 +107,12 @@ namespace OKLogger
                         {
                             foreach (var keyPair in Context)
                             {
-                                if (totalLogSize > 8000) continue;
+                                
                                 var keyName = Logger.CustomContextPrefix + (string.IsNullOrWhiteSpace(keyPair.Key) ? "data" : keyPair.Key);
+                                var newTotal =  keyName.Length + keyPair.Value.Length + totalLogSize;
+                                if (newTotal > 8000) continue;
                                 logEvent.Properties[keyName] = keyPair.Value;
-                                totalLogSize += keyName.Length;
-                                totalLogSize += keyPair.Value.Length;
+                                totalLogSize = newTotal;
                             }
                         }
                         Log.Logger.Log(logEvent);
