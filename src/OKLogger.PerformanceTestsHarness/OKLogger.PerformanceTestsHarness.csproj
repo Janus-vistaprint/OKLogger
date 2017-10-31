@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\OKLogger.PerformanceTests\OKLogger.PerformanceTests.csproj" />
+    <ProjectReference Include="..\OKLogger.PerformanceTests\OKLogger.PerformanceTests.csproj" />
   </ItemGroup>
 
 </Project>
