@@ -268,7 +268,7 @@ namespace OKLogger.Tests
 
             Assert.Equal(1, result.Count);
             Assert.True(result.ContainsKey("A"), "Should have a single, empty key");
-            Assert.Equal(result["A"], "test_String");
+            Assert.Equal(result["A"], "test_S_tring");
         }
 
         [Fact]

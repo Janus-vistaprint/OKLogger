@@ -33,16 +33,15 @@ namespace OKLogger.Parsing
             if (depth > MaxDepth || item == null) return new Dictionary<string, string>();
             var result = new Dictionary<string, string>();
             var props = ReflectionFactory.GetProperties(item);
-            //var props = item.GetType().GetRuntimeProperties();
             foreach (var prop in props)
             {
                 // see if we have a parser for this property
                 var parser = Formatters.GetParser(prop.PropertyType);
                 if (parser == null) continue;
 
-                //try
-                //{
-                    var val = prop.GetValue(prop);
+                try
+                {
+                    var val = prop.GetValue(item);
                     if (val == null) continue;
                     var propKeyValue = parser.Format(val, depth +1);
 
@@ -65,8 +64,8 @@ namespace OKLogger.Parsing
                         }
                         result[key] = value;
                     }
-                //}
-                //catch (Exception e) { } // swallow exception
+                }
+                catch (Exception e) { } // swallow exception
             }
 
             return result;

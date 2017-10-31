@@ -14,6 +14,6 @@ namespace OKLogger.Parsing
             return new Dictionary<string, string>();
         }
 
-        public bool Handles(Type t) =>  t.GetTypeInfo().IsAssignableFrom(exceptionTypeInfo);
+        public bool Handles(Type t) => t.GetTypeInfo().IsAssignableFrom(exceptionTypeInfo);
     }
 }
