@@ -9,26 +9,26 @@ namespace OKLogger.PerformanceTests
 {
     public class UnitTest1
     {
-        //[Fact]
-        //public void TestCharacterReplacer()
-        //{
-        //    var random = new Random();
-        //    var escaper = new ValueEscaper((new char[] { '"' }));
-        //    var strings = new List<string>(10000);
-        //    for (int i = 0; i < 10000; i++)
-        //    {
-        //        strings.Add(Extensions.StupidLargeStringMe(14000, random));
+        [Fact]
+        public void TestCharacterReplacer()
+        {
+           var random = new Random();
+           var escaper = new ValueEscaper((new char[] { '"' }));
+           var strings = new List<string>(10000);
+           for (int i = 0; i < 10000; i++)
+           {
+               strings.Add(Extensions.StupidLargeStringMe(14000, random));
                 
-        //    }
-        //    var timer = Stopwatch.StartNew();
-        //    foreach(var str in strings)
-        //    {
-        //        escaper.Escape(str);
-        //    }
-        //    timer.Stop();
-        //    Assert.InRange(timer.ElapsedMilliseconds, 0, 200);
-        //    Console.WriteLine($"Character replace quote {timer.ElapsedMilliseconds}ms");
-        //}
+           }
+           var timer = Stopwatch.StartNew();
+           foreach(var str in strings)
+           {
+               escaper.Escape(str);
+           }
+           timer.Stop();
+           Assert.InRange(timer.ElapsedMilliseconds, 0, 200);
+           Console.WriteLine($"Character replace quote {timer.ElapsedMilliseconds}ms");
+        }
     }
     public static class Extensions
     {
