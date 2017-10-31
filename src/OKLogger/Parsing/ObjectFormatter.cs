@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +32,8 @@ namespace OKLogger.Parsing
             
             if (depth > MaxDepth || item == null) return new Dictionary<string, string>();
             var result = new Dictionary<string, string>();
-
-            var props = item.GetType().GetRuntimeProperties();
-            foreach(var prop in props)
+            var props = ReflectionFactory.GetProperties(item);
+            foreach (var prop in props)
             {
                 // see if we have a parser for this property
                 var parser = Formatters.GetParser(prop.PropertyType);
@@ -40,16 +41,31 @@ namespace OKLogger.Parsing
 
                 try
                 {
-                    var val = prop.GetValue(item);
+                    var val = prop.GetValue(prop);
                     if (val == null) continue;
                     var propKeyValue = parser.Format(val, depth +1);
+
                     foreach (var kv in propKeyValue)
                     {
                         var suffix = string.IsNullOrWhiteSpace(kv.Key) ? string.Empty : "_" + kv.Key;
-                        result[prop.Name + suffix] = kv.Value;
+                        string key = prop.Name + suffix;
+                        string value;
+                        if (key.Length > 4000)
+                        {
+                            key = kv.Key.Substring(0, 4000); //short circuit strings larger than 8kb
+                        }
+                        if(!string.IsNullOrEmpty(kv.Value) && kv.Value.Length > 4000)
+                        {
+                            value = kv.Value.Substring(0, 4000);
+                        }
+                        else
+                        {
+                            value = kv.Value;
+                        }
+                        result[key] = value;
                     }
                 }
-                catch { } // swallow exception
+                catch (Exception e) { } // swallow exception
             }
 
             return result;

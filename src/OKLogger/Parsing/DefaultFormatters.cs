@@ -9,7 +9,7 @@ namespace OKLogger.Parsing
     public class DefaultFormatters : FormatterFactory
     {
         public const int MaxDepth = 3;
-        public IValueEscaper Scrubber = new ValueEscaper(new string[] { "\"" });
+        public IValueEscaper Scrubber = new ValueEscaper(new char[] { '"' });
 
         public DefaultFormatters()
             :base()

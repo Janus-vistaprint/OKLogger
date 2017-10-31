@@ -8,24 +8,25 @@ namespace OKLogger.Parsing
 {
     public class ValueEscaper : IValueEscaper
     {
-        private string[] EscapedChars { get; set; }
+        private char[] EscapedChars { get; set; }
 
-        public ValueEscaper(string[] escapedChars)
+        public ValueEscaper(char[] escapedChars)
         {
             EscapedChars = escapedChars;
         }
 
         public string Escape(string value)
         {
+            var time = System.Diagnostics.Stopwatch.StartNew();
             if(string.IsNullOrWhiteSpace(value))
             {
                 return string.Empty;
             }
             foreach(var c in EscapedChars)
             {
-                value = value.Replace(c, string.Empty);
+                value = value.Replace(c, '\0'); // \0 is an ASCII value of 0 aka no value
             }
-
+            time.Stop();
             return value;
         }
     }
