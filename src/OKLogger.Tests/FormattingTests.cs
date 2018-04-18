@@ -44,7 +44,7 @@ namespace OKLogger.Tests
             var objectFormatter = new ObjectFormatter(formatters, ",", 5);
             var result = objectFormatter.Format(objectToFormat, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Equal(result["Alpha"], "1,2,3,4,5");
 
 
@@ -124,7 +124,7 @@ namespace OKLogger.Tests
             var arrayFormatter = new ArrayFormatter(",", Scrubber);
             var result = arrayFormatter.Format(testArray, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "1,2,3,4");
 
@@ -140,7 +140,7 @@ namespace OKLogger.Tests
             var arrayFormatter = new ArrayFormatter(",", Scrubber);
             var result = arrayFormatter.Format(testArray, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "1.1,2.2,3.3,4.4");
 
@@ -154,7 +154,7 @@ namespace OKLogger.Tests
             var arrayFormatter = new ArrayFormatter(",", Scrubber);
             var result = arrayFormatter.Format(testArray, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "alpha,beta,gamma");
         }
@@ -167,7 +167,7 @@ namespace OKLogger.Tests
             var formatter = new GuidFormatter();
             var result = formatter.Format(testGuid, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "df0187e1-e1eb-4a9f-a528-4afebfecf4a5");
         }
@@ -180,7 +180,7 @@ namespace OKLogger.Tests
             var formatter = new EnumFormatter();
             var result = formatter.Format(testval, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "SecondValue");
         }
@@ -194,7 +194,7 @@ namespace OKLogger.Tests
             var formatter = new EnumFormatter();
             var result = formatter.Format(testval, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "SecondValue");
         }
@@ -208,7 +208,7 @@ namespace OKLogger.Tests
             var formatter = new EnumFormatter();
             var result = formatter.Format(testval, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], string.Empty);
         }
@@ -221,7 +221,7 @@ namespace OKLogger.Tests
             var formatter = new NumericFormatter();
             var result = formatter.Format(testVal, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], "3");
         }
@@ -234,7 +234,7 @@ namespace OKLogger.Tests
             var formatter = new NumericFormatter();
             var result = formatter.Format(testVal, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal(result[string.Empty], string.Empty);
         }
@@ -281,12 +281,34 @@ namespace OKLogger.Tests
 
             var result = formatter.Format(testVal, 0);
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
             Assert.Equal("1979-03-01 05:04:03Z", result[string.Empty]);
         }
 
+        [Fact]
+        public void BooleanFormatter()
+        {
+            var formatter = new BooleanFormatter();
+            var result = formatter.Format(false, 0);
 
+            Assert.Single(result);
+            Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
+            Assert.Equal("false", result[string.Empty]);
+
+            result = formatter.Format(true, 0);
+
+            Assert.Single(result);
+            Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
+            Assert.Equal("true", result[string.Empty]);
+
+            Assert.True(formatter.Handles(typeof(bool)), "Should handle boolean");
+            Assert.True(formatter.Handles(typeof(Boolean)), "Should handle boolean");
+
+            Assert.False(formatter.Handles(typeof(string)), "Should not handle non-boolean types");
+            Assert.False(formatter.Handles(typeof(object)), "Should not handle non-boolean types");
+
+        }
 
 
         public enum SampleEnum
