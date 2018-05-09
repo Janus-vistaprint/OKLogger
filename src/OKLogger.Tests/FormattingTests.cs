@@ -45,7 +45,7 @@ namespace OKLogger.Tests
             var result = objectFormatter.Format(objectToFormat, 0);
 
             Assert.Single(result);
-            Assert.Equal(result["Alpha"], "1,2,3,4,5");
+            Assert.Equal("1,2,3,4,5", result["Alpha"]);
 
 
         }
@@ -66,9 +66,9 @@ namespace OKLogger.Tests
             var result = objectFormatter.Format(objectToFormat, 0);
 
             Assert.Equal(3, result.Count);
-            Assert.Equal(result["A"], "1");
-            Assert.Equal(result["B"], "2");
-            Assert.Equal(result["C"], "3");
+            Assert.Equal("1", result["A"]);
+            Assert.Equal("2", result["B"]);
+            Assert.Equal("3", result["C"]);
 
 
         }
@@ -104,13 +104,13 @@ namespace OKLogger.Tests
             var duration = stopwatch.ElapsedMilliseconds;
 
             Assert.Equal(7, result.Count);
-            Assert.Equal(result["Alpha"], "a");
-            Assert.Equal(result["Beta"], "1");
-            Assert.Equal(result["EnumProp"], "SecondValue");
-            Assert.Equal(result["Receiver_Name"], "bkennedy");
-            Assert.Equal(result["Receiver_User_Id"], "2");
-            Assert.Equal(result["Sender_Name"], "admin");
-            Assert.Equal(result["Sender_User_Id"], "1");
+            Assert.Equal("a",result["Alpha"]);
+            Assert.Equal("1",result["Beta"]);
+            Assert.Equal("SecondValue",result["EnumProp"]);
+            Assert.Equal("bkennedy",result["Receiver_Name"]);
+            Assert.Equal("2",result["Receiver_User_Id"]);
+            Assert.Equal("admin", result["Sender_Name"]);
+            Assert.Equal("1",result["Sender_User_Id"]);
 
 
         }
@@ -126,7 +126,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "1,2,3,4");
+            Assert.Equal("1,2,3,4", result[string.Empty]);
 
 
 
@@ -142,7 +142,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "1.1,2.2,3.3,4.4");
+            Assert.Equal("1.1,2.2,3.3,4.4", result[string.Empty]);
 
         }
 
@@ -156,7 +156,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "alpha,beta,gamma");
+            Assert.Equal("alpha,beta,gamma", result[string.Empty]);
         }
 
         [Fact]
@@ -169,7 +169,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "df0187e1-e1eb-4a9f-a528-4afebfecf4a5");
+            Assert.Equal("df0187e1-e1eb-4a9f-a528-4afebfecf4a5",result[string.Empty]);
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "SecondValue");
+            Assert.Equal("SecondValue", result[string.Empty]);
         }
 
 
@@ -196,7 +196,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "SecondValue");
+            Assert.Equal("SecondValue", result[string.Empty]);
         }
 
 
@@ -223,7 +223,7 @@ namespace OKLogger.Tests
 
             Assert.Single(result);
             Assert.True(result.ContainsKey(string.Empty), "Should have a single, empty key");
-            Assert.Equal(result[string.Empty], "3");
+            Assert.Equal("3", result[string.Empty]);
         }
 
         [Fact]
@@ -268,7 +268,7 @@ namespace OKLogger.Tests
 
             Assert.Equal(1, result.Count);
             Assert.True(result.ContainsKey("A"), "Should have a single, empty key");
-            Assert.Equal(result["A"], "test_S_tring");
+            Assert.Equal("test_S_tring", result["A"]);
         }
 
         [Fact]

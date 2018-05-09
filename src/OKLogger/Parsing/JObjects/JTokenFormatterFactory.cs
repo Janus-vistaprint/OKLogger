@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
-namespace OKLogger.Parsing
+namespace OKLogger.Parsing.JObjects
 {
-    public class FormatterFactory : IFormatterFactory
+    public class JTokenFormatterFactory : IJTokenFormatterFactory
     {
-        protected SortedList<int, IEntityFormatter> Formatters { get; set; }
+        protected SortedList<int, IJTokenFormatter> Formatters { get; set; }
 
         protected int CurrentCustomFormatterPosition = 10000;
-        public FormatterFactory()
+
+        public JTokenFormatterFactory()
         {
-            Formatters = new SortedList<int, IEntityFormatter>();
+            Formatters = new SortedList<int, IJTokenFormatter>();
 
         }
 
-        public void Add(int priority, IEntityFormatter formatter)
+        public void Add(int priority, IJTokenFormatter formatter)
         {
             Formatters[priority] = formatter;
         }
 
-        public void AddCustomFormatter( IEntityFormatter formatter)
+        public void AddCustomFormatter(IJTokenFormatter formatter)
         {
             Add(CurrentCustomFormatterPosition++, formatter);
         }
 
-        public IEntityFormatter GetFormatter(Type t)
+
+        public IJTokenFormatter GetFormatter(JTokenType t)
         {
             foreach (var formatter in Formatters)
             {

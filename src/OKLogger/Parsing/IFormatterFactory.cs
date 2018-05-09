@@ -8,7 +8,7 @@ namespace OKLogger.Parsing
 {
     public interface IFormatterFactory
     {
-        IEntityFormatter GetParser(Type t); 
+        IEntityFormatter GetFormatter(Type t); 
 
         void AddCustomFormatter(IEntityFormatter formatter);
     }
