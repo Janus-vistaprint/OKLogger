@@ -33,6 +33,7 @@ namespace OKLogger
 
             if (o == null) return results;
             var formatter = Formatters.GetFormatter(o.GetType());
+            if (formatter == null) return results;
             return formatter.Format(o,0);
         }
 
