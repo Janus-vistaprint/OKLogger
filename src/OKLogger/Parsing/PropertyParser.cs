@@ -32,7 +32,7 @@ namespace OKLogger
             var results = new Dictionary<string, string>();
 
             if (o == null) return results;
-            var formatter = Formatters.GetParser(o.GetType());
+            var formatter = Formatters.GetFormatter(o.GetType());
             return formatter.Format(o,0);
         }
 

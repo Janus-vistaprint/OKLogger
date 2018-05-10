@@ -36,7 +36,7 @@ namespace OKLogger.Parsing
             foreach (var prop in props)
             {
                 // see if we have a parser for this property
-                var parser = Formatters.GetParser(prop.PropertyType);
+                var parser = Formatters.GetFormatter(prop.PropertyType);
                 if (parser == null) continue;
 
                 try

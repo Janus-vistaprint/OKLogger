@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OKLogger.Parsing.JObjects;
 
 namespace OKLogger.Parsing
 {
@@ -26,6 +27,7 @@ namespace OKLogger.Parsing
             Add(101, new GenericListFormatter(",", Scrubber));
             Add(102, new DictionaryFormatter(",", Scrubber));
 
+            Add(500, new JTokenFormatter(new DefaultJTokenFormatters(), ",", MaxDepth));
 
             Add(Int16.MaxValue, new ObjectFormatter(this, ",", MaxDepth));
 

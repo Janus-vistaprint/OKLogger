@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="microsoft.testplatform.testhost" Version="15.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
