@@ -457,6 +457,40 @@ namespace OKLogger.Tests
 
         }
 
+
+        [Fact]
+        [Trait("Category", "JToken")]
+        public void JToken_JTokenFormatter_ComplexObject()
+        {
+            var testVal = JObject.Parse(@"{
+	            ""msg"": ""JS error message"",
+
+                ""logLevel"": ""error"",
+	            ""data"": {
+                    ""link"": ""https://test.com"",
+		            ""description"": ""error description"",
+		            ""values"": [
+			            ""value1"",
+			            ""value2"",
+			            ""value3""
+		            ]
+                }
+            }");
+
+            var formatter = new JTokenFormatter(new DefaultJTokenFormatters(), ",", 3);
+            var result = formatter.Format(testVal, 0);
+
+            var propParser = new PropertyParser(new DefaultFormatters(), ",");
+            var result2 = propParser.Parse(testVal);
+
+
+            Assert.Equal(5, result.Count);
+            Assert.Equal("JS error message", result["msg"]);
+            Assert.Equal("error", result["logLevel"]);
+            Assert.Equal("https://test.com", result["data_link"]);
+            Assert.Equal("error description", result["data_description"]);
+            Assert.Equal("value1,value2,value3", result["data_values"]);
+        }
     }
 }
 

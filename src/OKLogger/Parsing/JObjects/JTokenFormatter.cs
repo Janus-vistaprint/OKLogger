@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace OKLogger.Parsing.JObjects
 {
@@ -40,10 +41,11 @@ namespace OKLogger.Parsing.JObjects
             
         }
 
+        private Type[] HandledTypes = new Type[] { typeof(JObject), typeof(JArray), typeof(JContainer) };
 
         public bool Handles(Type t)
         {
-            return t == typeof(JToken);
+            return HandledTypes.Contains(t);
         }
 
 
