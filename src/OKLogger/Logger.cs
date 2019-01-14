@@ -76,6 +76,22 @@ namespace OKLogger
                 if (IsLogLevelEnabled(level))
                 {
                     int totalLogSize = message.Length;
+                    
+                    //run the context callbacks before starting a new task
+                    List<object> contextResults = new List<object>(ContextCallbacks.Count);
+                    foreach (var contextCallback in ContextCallbacks)
+                    {
+                        try
+                        {
+                            object contextResult = contextCallback();
+                            contextResults.Add(contextResult);
+                        }
+                        catch (Exception)
+                        {
+                            //best effort running context callbacks
+                        }
+                    }
+
                     Task.Run(() =>
                     {
                         var props = PropParser.Parse(properties);
@@ -83,9 +99,8 @@ namespace OKLogger
 
                         logEvent.Properties[EnvironmentProperty] = Environment;
                         //logEvent.Properties[ProcessIdProperty] = Process.GetCurrentProcess().Id;
-                        foreach (var contextCallback in ContextCallbacks)
+                        foreach (var contextResult in contextResults)
                         {
-                            var contextResult = contextCallback();
                             var contextProperties = PropParser.Parse(contextResult);
 
                             foreach (var keyPair in contextProperties)
